@@ -1,0 +1,70 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<h1 id = "heading">JSON Example</h1>
+		<input type = "text" id = "search" placeholder = "Search Food">  <button type="button" id="go">Go</button>
+		<div id ="images"></div>
+		<div id = "ingredients"></div>
+		<div id = "description"></div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script>
+		var test = "";
+		var testa = [];
+		var help = "";
+		/*$(document).ready(function(){
+			$("#go").click(function(){
+				var input = $("#search").val();
+				var link = "http://api.yummly.com/v1/api/recipes?_app_id=13a0cff3&_app_key=9b1400c6141b0670ab92f46a3e6950a6&q=" + input;
+				var test;
+				$.getJSON(link,
+					function(result){
+						test = result;
+						var build = "";
+						/*for(index = 0; index < result.matches[0].ingredients.length; index++){
+							var d = result.matches[0].ingredients[index];
+							build += "<li>" + d + "</li>";
+						}
+						var img = test.matches[0].imageUrlsBySize[90];
+						$("#image").html('<img src=' + img + 's90-c' + '/>');
+						<!-- $("#image").text(img.indexOf("s90-c"));
+						$("#heading").text(test.matches[0].recipeName);
+						$("#description").text(test.matches[0].sourceRecipeUrl);
+						$("#ingredients").html(build + "</ol>");
+						*/
+						/*for(index = 0; index < result.matches.length; index++){
+							var d = result.matches[index].imageUrlsBySize["90"];
+							var a = "http://api.yummly.com/v1/api/recipe/" + result.matches[index].id +"?_app_id=13a0cff3&_app_key=9b1400c6141b0670ab92f46a3e6950a6";
+							build += "<a href='" + a + "' target='_blank'>";
+							build += "<img src='" + d + "'/></a>";
+							console.log(d);
+						}
+						$("#images").html(build);
+					});
+				});
+			});
+			*/
+			var link = "http://api.yummly.com/v1/api/recipes?_app_id=13a0cff3&_app_key=9b1400c6141b0670ab92f46a3e6950a6&q=onion+soup"
+			$.getJSON(link,
+					function(result){
+						test = result;
+						var build = "";
+						for(index = 0; index < result.matches.length; index++){
+							var d = result.matches[index].imageUrlsBySize["90"];
+							var a = "http://api.yummly.com/v1/api/recipe/" + result.matches[index].id +"?_app_id=13a0cff3&_app_key=9b1400c6141b0670ab92f46a3e6950a6";
+							testa[index] = "http://api.yummly.com/v1/api/recipe/" + result.matches[index].id +"?_app_id=13a0cff3&_app_key=9b1400c6141b0670ab92f46a3e6950a6";
+							build += "<a href='" + a + "' target='_blank'>";
+							build += "<img src='" + d + "'/></a>";
+							<!--console.log(d);
+						}
+					});
+			$.getJSON(testa[0],
+				function(result2){
+					help = result2;
+			})
+		</script>
+	
+	</body>
+<html>
+
+<!--http://api.yummly.com/v1/api/recipes?_app_id=13a0cff3&_app_key=9b1400c6141b0670ab92f46a3e6950a6&q=onion+soup
