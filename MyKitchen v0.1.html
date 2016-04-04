@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<style>
+						#main{
+							margin:auto;
+						}
+						
+						#logo{
+							background-color:orange;
+							padding:10px;
+							
+						}
+						#logoimg.center{
+						 display: block;
+						 margin: 0 auto;
+						}
+                        
+						#shortcut{
+								margin-left:3px;
+								margin-right:3px;
+								margin-top:3px;
+                                background-color:orange;
+								width: 880px;
+                                padding:10 px;
+								
+                       }
+                        #shortcut a{
+                                text-decoration:none;
+                                font-size:8pt;
+                                margin-right:5px;
+								width 500px;
+                        }
+						
+						#nav{
+							
+							background-color: brown;
+							width:100% auto;
+						
+						}
+						
+						#nav a{
+				
+							padding-right:55px;
+							padding:11;
+							font-size:24pt;
+							color: #FFFFFF;
+							text-decoration:none;
+							
+						}
+						#nav a:hover{
+							color: green;
+						}
+						#ReceiveRecipe{
+						
+							margin: 0 auto;
+                            float: none;
+							padding:8px;
+							background-color:	#90EE90;
+							
+							
+						}
+                        .input-group{
+                            text-align:center;
+                            
+                        }
+						#main{
+							width:100%;
+							height:100%;
+							background-image: url("");
+						}
+						#recipes{
+							
+							padding:10px
+							
+						}
+						.cards {
+							width:200px;
+							height:300px;
+							border-style:solid;
+							margin : 10px;
+							float: left;
+							
+						}
+						.foodimg{
+							margin-left:50px;
+							margin-top:30px;
+							border-style:dotted;
+						}
+						.description{
+							width:100px;
+							margin-left:50px;
+						}
+						.modal-content{
+							width:100% auto;
+						}
+						#page{
+							width:550px;
+							height:700px;
+						}
+
+
+		</style>
+		
+	</head>
+	
+	<body>
+		  <center><div id="logo">
+		      <img src="http://s22.postimg.org/etevd18o1/My_Kitchen1.png" id="logoimg">
+		  </center>
+		</div>
+		
+		<center><div id="nav">
+		
+			<!-- <a href="index.html">MyKitchen</a> -->
+			<a href="recipes.html" target="_self">Home</a>
+			<a href="account.html" target="_self">Help</a>
+			<a href="http://codingcooks.azurewebsites.net/">About</a>
+            
+		</center>
+		</div>
+		
+		<center><div id="ReceiveRecipe">
+			<div class="col-lg-2">
+                <div class="input-group">
+                    <input class="form-control" type="text" id="search" placeholder="Press Enter">
+                </div>
+            </div> 
+            
+            <button type="button" id="Add" data-toggle="collapse" data-target="#more">+</button>  
+            
+            <button type="button" data-toggle="collapse" data-target="#opt">Options </button>
+				
+            <div id="opt" class="collapse">
+                
+					<form role="form">
+					   <div class="checkbox">
+					       <label><input type="checkbox" value="">Option 1</label>
+					   </div>
+                        
+                       <div class="checkbox">
+                          <label><input type="checkbox" value="">Option 2</label>
+                       </div>
+				  </form>
+                
+			</div>
+            
+            <div id="more" class="collapse">
+				
+            </div>
+            
+         </div></center>
+        
+		<div id="main">
+		
+			<div id ="recipes"></div>
+		</div>
+		
+		<!-- Modal for recipes -->
+		  <div class="modal fade" id="RecipeModal">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body" id="mod-body">
+				
+				</div>
+			  </div>
+			  
+			</div>
+		  </div>
+		<!-- Modal for list maker -->
+		  <div class="modal fade" id="ListModal">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body" id="mod-body">
+				
+				</div>
+			  </div>
+			  
+			</div>
+		  </div>
+		  
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		
+		<script>
+		var link = "";
+		//var check = "";
+	
+		//The function was for getting more info on a recipe, now it creates the modal + iframe
+		function info(t) {
+			link = "http://www.yummly.com/recipe/" + $(t).attr("data") + "?columns=3&position=4%2F37";
+			/*$.getJSON(link,
+					function(result2){
+						check = result2;
+						url = "google.com";
+						
+						//Adds*/
+						$("#mod-body").html("<iframe id='page' src=" + link + " ></iframe>");
+						$("#RecipeModal").modal();
+						
+					//})
+		} 
+		
+		//Basics of the search engine
+		$(document).ready(function(){
+			//When user presses enter...
+			$("#search").keypress(function (e) {
+				if(e.keyCode == 13){
+					var input = $("#search").val();
+					var link = "http://api.yummly.com/v1/api/recipes?_app_id=13a0cff3&_app_key=9b1400c6141b0670ab92f46a3e6950a6&q=" + input + "&maxResult=50";
+					$.getJSON(link,
+						function(result){
+							console.log(result);
+							var recipebuild = "";
+							for(index = 0; index < result.matches.length; index++){
+								var id = result.matches[index].id;
+								var im = result.matches[index].imageUrlsBySize["90"];
+								var nam = result.matches[index].recipeName;
+								recipebuild += "<a onclick='info(this);' data='" + id + "' >";
+								recipebuild += "<div class = 'cards'><img class = 'foodimg' src='" + im + "'/><div class = 'description'>" + nam + "</div></div>";
+							}
+							$("#recipes").html(recipebuild);
+							
+						});
+					}
+				})
+			})
+		//Advanced Menu
+		
+		
+		//Add from list
+		
+			
+		</script>
+	</body>
+
+</html>

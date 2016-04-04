@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <style>
+
+
+            #nav{
+
+                background-color: brown;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+            }
+
+            #nav a{
+
+                padding-right:55px;
+                font-size:24pt;
+                color: #FFFFFF;
+                text-decoration:none;
+                font-family: Impact, Charcoal, sans-serif;
+                color: white;
+                text-shadow: 2px 2px 4px #000000;  
+
+            }
+
+            #nav a:hover{
+
+                color: #90EE90;
+
+            }
+
+            #Input{
+
+
+                padding:8px;
+                background-color:	#90EE90;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+
+            }
+            
+            
+
+            #recipes{
+                padding-top:10px;
+                margin-left:4%;
+
+            }
+
+            .cards {
+
+                width: 200px;
+                height: 200px;
+                margin: 5px;
+                float: left;
+                background-color: #90EE90;
+                color: white;
+                font-family: Arial Black;
+                text-shadow: 0 0 5px #333;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 3px 3px 5px 0 rgba(0, 0, 0, 0.19);
+                font-weight:900
+                    
+             }
+
+            #foodimg{
+
+                margin-left:50px;
+                margin-top:30px;
+
+            }
+
+            .description{
+
+                text-align: center;
+
+            }
+            
+            #RecipeModal .modal-body {max-height: 800px;}
+
+            .form-group{
+                
+                padding:5px;
+                display:table-cell
+
+
+            }
+
+            #search{
+
+                display:table-cell
+
+            }
+
+            .modal-wide .modal-dialog {
+                
+                width: 80%;
+                
+            }
+            
+            #page{
+                
+                margin-left:10px;
+                width:90%;
+                height:700px;
+            }
+            #more{
+				padding-left:30px;
+				padding-top:25px;
+				padding-right:30px;
+			}
+			#opt{
+				padding-right:30px;
+				padding-top:25px;
+			}
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id="logo">
+
+            <img src="http://s8.postimg.org/4mawlil5h/Logo_2.png" id="logoimg"/>
+
+        </div>
+
+        <center><div id="nav">
+
+            <a href="recipes3.html" target="_self">Home</a>
+            <!-- <a href="help.html" target="_self">Help</a> -->
+            <a href="http://codingcooks.azurewebsites.net/">About Us</a>
+
+        </center></div>
+
+        <center><div id="Input">
+            
+            <div class="row">
+
+                <div class="container">
+
+                    <div class="form-group">
+
+                        <input class="form-control" id="search" type="text" placeholder="Press Enter">
+
+                    </div> 
+
+                    <div class="form-group" >
+
+                        <button type="button" id="Add" data-toggle="collapse" data-target="#more, #opt"  class="btn btn-default">Advanced Options</button> 
+
+                    </div>
+
+                </div>
+
+                <div class = "row" id="extra">
+
+                    <div class="col-sm-12"><div id="more" class="collapse">
+
+                        
+                        <div class="panel panel-default">
+
+                            <div id="more-panel" class="panel-body">
+
+                                <ol id = "more-list">
+
+
+                                </ol>
+
+                            </div>
+						<div class="form-group">	
+
+							<button type="submit" id="btnadd" class="btn btn-default" onclick = "additem()">Add Ingredient</button>
+
+						</div>
+						<div>
+
+                            <button type = "button" id="more-go" class="btn btn-default" onclick = "advsearch()">Search</button>
+
+                        </div>
+
+                        </div>
+
+                    </div></div>
+
+                    <!-- <div class="col-sm-6"><div id="opt" class="collapse">
+
+                        <div class="panel panel-default">
+
+                            <div class="panel-body">
+
+                                <div class="checkbox">
+
+                                    <label><input type="checkbox" value=""/>Option 1</label>
+
+                                </div>
+
+                                <div class="checkbox">
+
+                                    <label><input type="checkbox" value=""/>Option 2</label>
+
+                                </div>
+
+                            </div>
+						-->
+                            <div id="opt-footer">
+
+
+
+                            </div>
+						
+
+
+                        </div>
+
+                        
+
+                    </div></div>
+                 
+                 
+
+            </div>
+
+
+            </center></div>
+
+
+
+        <div id ="recipes">
+
+
+        </div>
+
+
+        <!-- Modal for recipes -->
+        
+        <div class="modal fade modal-wide" id="RecipeModal">
+
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <div id="mod-title"></div>
+                        
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    </div>
+
+                    <div class="modal-body" id="rec-mod-body">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Modal for list maker -->
+
+        <!-- <div class="modal fade modal-wide" id="ListModal">
+
+            <div class="modal-dialog">
+
+                <!-- Modal Content
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    </div>
+
+                    <div class="modal-body" id="mod-body">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        -->
+        
+
+
+        <script>
+            /*Checklist: What left to do.
+            
+                1. Have the two columns for advanced options be placed side-by-side.
+                2. Create a new text input for the multiple items bar.
+                3. Add a remove and edit option onto the list
+                4. Complete checklist functionality.
+                5. 
+                
+            */
+
+            var link = "";
+            var advinput = [ ];
+            var advlink = "";
+            var cnt = 0;
+
+            //The function is for getting more info on a recipe
+            function info(t) {
+
+                var modtit = $(t).attr("name");
+                console.log(modtit);
+                link = "http://api.yummly.com/v1/api/recipe/" + $(t).attr("data") + "?_app_id=13a0cff3&_app_key=1363fe9aaf5139edafec15ad8428e295";
+
+                $.getJSON(link,
+
+                          function(result2){
+
+                              check = result2;
+                              console.log(check);
+                              url = check.source.sourceRecipeUrl;
+
+                              //Adds
+                              $("#mod-title").html(modtit);
+                              $("#rec-mod-body").html("<iframe id='page' src=" + url + " ></iframe>");
+                              $("#RecipeModal").modal();
+
+                          }
+                         )
+            }
+            //Basics of the search engine
+
+            $(document).ready ( function(){
+
+                //When user presses enter...
+
+                $("#search").keypress( function (e) {
+
+                    if(e.keyCode == 13){
+
+                        var input = $("#search").val();
+                        var link = "http://api.yummly.com/v1/api/recipes?_app_id=13a0cff3&_app_key=1363fe9aaf5139edafec15ad8428e295&q=" + input + "&maxResult=50";
+                        console.log(input);
+                        $.getJSON(link,
+
+                                  function(result){
+
+                                      console.log(result);
+                                      var recipebuild = "";
+                                      for(index = 0; index < result.matches.length; index++){
+
+                                          var id = result.matches[index].id;
+                                          var im = result.matches[index].imageUrlsBySize["90"];
+                                          var nam = result.matches[index].recipeName;
+
+                                          recipebuild += "<a onclick='info(this);' data='" + id + "'  name='" + nam + "'>";
+                                          recipebuild += "<div class = 'cards'><img id = 'foodimg' src='" + im + "' class='img-rounded'/><div class = 'description'>" + nam + "</div></div>";
+                                      }
+
+                                      $("#recipes").html(recipebuild);
+
+                                  });
+                    }
+                })
+
+            })
+
+            function additem(){
+
+                advinput.push($("#search").val());
+                $("#more-list").after("<li>"+ advinput[cnt] + "</li>");
+                advlink += "&allowedIngredient[]=" + $("#search").val();
+                console.log(advinput);
+                cnt++;
+
+            }
+            
+            function advsearch(){
+
+                var input = $("#search").val();
+                var link = "http://api.yummly.com/v1/api/recipes?_app_id=13a0cff3&_app_key=dd214ab5bc52ca48343369cb3af12eda&q=" + input + "&maxResult=50" + advlink;
+                $.getJSON(link,
+
+                          function(result){
+
+                              console.log(result);
+                              var recipebuild = "";
+                              for(index = 0; index < result.matches.length; index++){
+
+                                  var id = result.matches[index].id;
+                                  var im = result.matches[index].imageUrlsBySize["90"];
+                                  var nam = result.matches[index].recipeName;
+
+                                  recipebuild += "<a onclick='info(this);' data='" + id + "'  name=" + nam + ">";
+                                  recipebuild += "<div class = 'cards'><img id = 'foodimg' src='" + im + "' class='img-rounded'/><div class = 'description'>" + nam + "</div></div>";
+                              }
+                              
+                              $("#recipes").html(recipebuild);
+
+                          });
+            }
+            
+
+
+        </script>
+
+    </body>
+
+</html>
